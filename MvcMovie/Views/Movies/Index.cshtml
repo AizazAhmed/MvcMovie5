@@ -60,5 +60,7 @@
         </td>
     </tr>
 }
+    @Html.Raw(Neodynamic.SDK.Web.WebClientPrint.CreateScript(Url.Action("Print", "Movies", null, Request.Url.Scheme)))
 
+    <a href="#" onclick="jsWebClientPrint.print('sid=@Session.SessionID');">Print...</a>
 </table>

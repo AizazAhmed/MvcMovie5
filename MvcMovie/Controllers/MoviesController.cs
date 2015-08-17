@@ -10,6 +10,9 @@ using MvcMovie.Models;
 
 namespace MvcMovie.Controllers
 {
+    using Neodynamic.SDK.Web;
+    using Properties;
+
     public class MoviesController : Controller
     {
         private MovieDBContext db = new MovieDBContext();
@@ -165,6 +168,20 @@ public ActionResult DeleteConfirmed(int id)
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public void Print()
+        {
+            //Create a ClientPrintJob obj that will be processed at the client side by the WCPP
+            ClientPrintJob cpj = new ClientPrintJob();
+
+            //use default printer on the client machine
+            cpj.ClientPrinter = new DefaultPrinter();
+
+            //set the commands to send to the printer
+            cpj.PrinterCommands = Resources.PrinterText;
+
+            cpj.SendToClient(System.Web.HttpContext.Current.Response);
         }
     }
 }
